@@ -2,3 +2,5 @@
 .idea/
 .vscode/
 .cursor/
+.env
+node_modules/
