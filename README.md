@@ -144,5 +144,9 @@ Cart is the current user's draft order and its items.
 | PATCH | `/admin/users/:id` | Set active status `{ is_active }` (ban / unban) |
 | DELETE | `/admin/users/:id` | Delete |
 
+## API Documentation
+
+[API Documentation](https://documenter.getpostman.com/view/9445111/2sBY4PNfjJ)
+
 
 
