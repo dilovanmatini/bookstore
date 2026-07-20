@@ -1,0 +1,294 @@
+@baseUrl = http://localhost:3000/api
+@token =
+@bookId = 1
+@categoryId = 1
+@orderId = 1
+@cartItemId = 1
+@userId = 1
+
+###
+# Auth
+# Run Login first, then paste the token into @token above for protected routes.
+###
+
+### Register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Dilovan Matini",
+  "email": "dilovan@example.com",
+  "password": "password123",
+  "phone": "9647501112233"
+}
+
+### Login
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "dilovan@example.com",
+  "password": "password123"
+}
+
+### Logout
+POST {{baseUrl}}/auth/logout
+Authorization: Bearer {{token}}
+
+### Get Me
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{token}}
+
+### Update Me
+PATCH {{baseUrl}}/auth/me
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Dilovan Updated",
+  "phone": "9647501112299"
+}
+
+###
+# Catalog (public)
+###
+
+### List Categories
+GET {{baseUrl}}/categories
+
+### List Books
+GET {{baseUrl}}/books?query=&category_id=&limit=20&offset=0
+
+### Recent Books
+GET {{baseUrl}}/books/recent?limit=10
+
+### Get Book
+GET {{baseUrl}}/books/{{bookId}}
+
+###
+# Cart
+###
+
+### Get Cart
+GET {{baseUrl}}/cart
+Authorization: Bearer {{token}}
+
+### Add to Cart
+POST {{baseUrl}}/cart
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "book_id": 1,
+  "quantity": 1
+}
+
+### Update Cart Item
+PATCH {{baseUrl}}/cart/{{cartItemId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "quantity": 2
+}
+
+### Remove Cart Item
+DELETE {{baseUrl}}/cart/{{cartItemId}}
+Authorization: Bearer {{token}}
+
+### Clear Cart
+DELETE {{baseUrl}}/cart
+Authorization: Bearer {{token}}
+
+###
+# Orders
+###
+
+### Checkout
+POST {{baseUrl}}/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "address": "Masike, Duhok, Iraq"
+}
+
+### List Orders
+GET {{baseUrl}}/orders?status=
+Authorization: Bearer {{token}}
+
+### Get Order
+GET {{baseUrl}}/orders/{{orderId}}
+Authorization: Bearer {{token}}
+
+### Cancel Order
+PATCH {{baseUrl}}/orders/{{orderId}}/cancel
+Authorization: Bearer {{token}}
+
+###
+# Favorites
+###
+
+### List Favorites
+GET {{baseUrl}}/favorites
+Authorization: Bearer {{token}}
+
+### Add Favorite
+POST {{baseUrl}}/favorites
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "book_id": 1
+}
+
+### Remove Favorite
+DELETE {{baseUrl}}/favorites/{{bookId}}
+Authorization: Bearer {{token}}
+
+###
+# Admin — Categories
+# Requires an admin-role account token.
+###
+
+### Admin List Categories
+GET {{baseUrl}}/admin/categories?query=
+Authorization: Bearer {{token}}
+
+### Admin Get Category
+GET {{baseUrl}}/admin/categories/{{categoryId}}
+Authorization: Bearer {{token}}
+
+### Admin Create Category
+POST {{baseUrl}}/admin/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Fiction"
+}
+
+### Admin Update Category
+PUT {{baseUrl}}/admin/categories/{{categoryId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Science Fiction"
+}
+
+### Admin Delete Category
+DELETE {{baseUrl}}/admin/categories/{{categoryId}}
+Authorization: Bearer {{token}}
+
+###
+# Admin — Books
+###
+
+### Admin List Books
+GET {{baseUrl}}/admin/books?query=
+Authorization: Bearer {{token}}
+
+### Admin Get Book
+GET {{baseUrl}}/admin/books/{{bookId}}
+Authorization: Bearer {{token}}
+
+### Admin Create Book
+POST {{baseUrl}}/admin/books
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "category_id": 1,
+  "title": "The Great Novel",
+  "description": "A wonderful story",
+  "author": "A. Writer",
+  "isbn": "978-0000000001",
+  "published_at": "2024-01-15",
+  "price": 19.99,
+  "image": null
+}
+
+### Admin Update Book
+PUT {{baseUrl}}/admin/books/{{bookId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "The Great Novel (Revised)",
+  "price": 21.99
+}
+
+### Admin Delete Book
+DELETE {{baseUrl}}/admin/books/{{bookId}}
+Authorization: Bearer {{token}}
+
+###
+# Admin — Orders
+###
+
+### Admin List Orders
+GET {{baseUrl}}/admin/orders?query=&status=
+Authorization: Bearer {{token}}
+
+### Admin Get Order
+GET {{baseUrl}}/admin/orders/{{orderId}}
+Authorization: Bearer {{token}}
+
+### Admin Update Order Status
+PATCH {{baseUrl}}/admin/orders/{{orderId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "in_progress"
+}
+
+###
+# Admin — Users
+###
+
+### Admin List Users
+GET {{baseUrl}}/admin/users?query=
+Authorization: Bearer {{token}}
+
+### Admin Get User
+GET {{baseUrl}}/admin/users/{{userId}}
+Authorization: Bearer {{token}}
+
+### Admin Create User
+POST {{baseUrl}}/admin/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Admin",
+  "email": "admin@example.com",
+  "password": "password123",
+  "phone": "9647501114455",
+  "role": "admin"
+}
+
+### Admin Update User
+PUT {{baseUrl}}/admin/users/{{userId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Updated Name",
+  "phone": "9647501114477"
+}
+
+### Admin Set Active Status
+PATCH {{baseUrl}}/admin/users/{{userId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "is_active": false
+}
+
+### Admin Delete User
+DELETE {{baseUrl}}/admin/users/{{userId}}
+Authorization: Bearer {{token}}

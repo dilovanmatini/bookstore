@@ -31,7 +31,7 @@ const issueToken = async (userId) => {
 };
 
 export const register = async (req, res) => {
-    const { name, email, password, phone, role } = req.body;
+    const { name, email, password, phone } = req.body;
     const missing = [];
 
     if (!name) missing.push('Name');
@@ -59,7 +59,7 @@ export const register = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            role: role || Role.User,
+            role: Role.User,
             phone,
         });
 
