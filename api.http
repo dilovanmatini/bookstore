@@ -1,8 +1,8 @@
 @baseUrl = http://localhost:3000/api
-@token =
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwianRpIjoiMDE0YTUyNDctZjVlNS00ZTgxLTk3YTUtNjJlMTM2MmY5MDA5IiwiaWF0IjoxNzg0NjE2MjMxLCJleHAiOjE3ODQ2NDUwMzF9.vj8U8dJF3y_WqqmqJLBvaYB6kZ5VUQnbahxRQ72nHnw
 @bookId = 1
 @categoryId = 1
-@orderId = 1
+@orderId = 2
 @cartItemId = 1
 @userId = 1
 
@@ -58,7 +58,7 @@ Content-Type: application/json
 GET {{baseUrl}}/categories
 
 ### List Books
-GET {{baseUrl}}/books?query=&category_id=&limit=20&offset=0
+GET {{baseUrl}}/books?query=&category_id=&limit=10&offset=0
 
 ### Recent Books
 GET {{baseUrl}}/books/recent?limit=10
@@ -111,7 +111,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "address": "Masike, Duhok, Iraq"
+  "address": ""
 }
 
 ### List Orders

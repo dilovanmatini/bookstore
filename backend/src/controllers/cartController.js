@@ -32,6 +32,12 @@ export const addToCart = async (req, res) => {
         });
     }
 
+    if (quantity < 1 || !Number.isInteger(quantity)) {
+            success: false,
+            message: 'The quantity is invalid',
+        });
+    }
+
     const qty = Number(quantity);
 
     try {

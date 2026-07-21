@@ -57,7 +57,7 @@ export const getOrder = async (req, res) => {
     try {
         const order = await getOrderWithItems(req.params.id);
 
-        if (!order) {
+        if (!order || Number(order.user_id) !== Number(req.userId)) {
             return res.status(404).json({
                 success: false,
                 message: 'Order not found',
